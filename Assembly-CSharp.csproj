@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BirdFly.cs" />
+    <Compile Include="Assets\Scripts\PipeController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Unity_WorkStation/FlappyBird_Second/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
