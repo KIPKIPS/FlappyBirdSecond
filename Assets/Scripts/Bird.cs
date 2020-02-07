@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Bird : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Bird : MonoBehaviour
     public event Action KnockTrap;//声明一个事件,发布消息
     public CameraController cc;
 
+    private int score;
     // Start is called before the first frame update
     void Start() {
         mat = GetComponent<Renderer>().material;
@@ -22,6 +24,7 @@ public class Bird : MonoBehaviour
         temp = 0;
         rigid = GetComponent<Rigidbody>();
         cc = Camera.main.GetComponent<CameraController>();
+        score = 0;
     }
 
     // Update is called once per frame
@@ -43,11 +46,18 @@ public class Bird : MonoBehaviour
         }
     }
 
+    //发生碰撞
     void OnCollisionEnter(Collision other) {
         if (other.collider.tag=="Trap") {
-            Debug.Log("pz");
             KnockTrap += cc.StopMove;
             KnockTrap?.Invoke();//不为NULL则调用
+        }
+    }
+
+    void OnTriggerEnter(Collider other) {
+        score++;
+        if (other.tag=="Score") {
+            GameObject.Find("Score").transform.GetComponent<Text>().text = "Your Score : " + score;
         }
     }
 }
