@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    public Transform firstBg;
+    public Transform firstBg;//当前状态最后一个Bg
     public static GameManager _instance;
     //单例模式
     void Awake() {

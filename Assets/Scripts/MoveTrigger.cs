@@ -12,7 +12,7 @@ public class MoveTrigger : MonoBehaviour
     void Start() {
         currentBg = this.transform.parent;
         //获取子游戏对象的组件
-        //GetChild(int index);index为子物体的索引值(从零开始)
+        //GetChild(int index); 返回一个GameObject类型的值 index为子物体的索引值(从零开始)
         pipe1 = currentBg.GetChild(1).transform.GetComponent<PipeController>();
         pipe2 = currentBg.GetChild(2).transform.GetComponent<PipeController>();
     }
@@ -29,7 +29,7 @@ public class MoveTrigger : MonoBehaviour
             Transform firstBg = GameManager._instance.firstBg;
             //将当前Bg沿x坐标轴移动十个单位
             currentBg.position=new Vector3(firstBg.position.x+10, currentBg.position.y, currentBg.position.z);
-            GameManager._instance.firstBg = currentBg;
+            GameManager._instance.firstBg = currentBg;//重新为firstBg赋值
 
             //重新生成管道的位置
             pipe1.RandomPipePosition();

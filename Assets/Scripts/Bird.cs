@@ -22,8 +22,9 @@ public class Bird : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        rigid.velocity = new Vector3(5, 0, 0);//添加水平速度
-        //控制帧动画
+        Vector3 v = rigid.velocity;
+        rigid.velocity = new Vector3(5, v.y, 0);//添加水平速度
+        //Animation
         mat.SetTextureOffset(1, new Vector2(frameCount * 1 / 3.0f, 0));
         temp += 1.0f / fps;
         if (temp >= 1) {
@@ -31,12 +32,10 @@ public class Bird : MonoBehaviour
             temp = 0;
         }
         frameCount %= 3;
-        //施加力
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            OnBirdAddForce();
+        
+        //Controller
+        if (Input.GetMouseButtonDown(0)) {
+            rigid.velocity = new Vector3(v.x, 5, 0);
         }
-    }
-    void OnBirdAddForce() {
-        rigid.velocity=new Vector3(0,15,0);
     }
 }
