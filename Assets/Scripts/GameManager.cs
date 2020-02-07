@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
     //单例模式
     void Awake() {
         _instance = this;
-        firstBg = GameObject.Find("bg3").transform;
+        firstBg = GameObject.Find("bg5").transform;
     }
     // Start is called before the first frame update
     void Start() {

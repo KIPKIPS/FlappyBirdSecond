@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Bird : MonoBehaviour
 {
@@ -11,13 +12,16 @@ public class Bird : MonoBehaviour
     private float temp;
 
     public Rigidbody rigid;
+    public event Action KnockTrap;//声明一个事件,发布消息
+    public CameraController cc;
+
     // Start is called before the first frame update
     void Start() {
         mat = GetComponent<Renderer>().material;
         frameCount = 0;
         temp = 0;
         rigid = GetComponent<Rigidbody>();
-        
+        cc = Camera.main.GetComponent<CameraController>();
     }
 
     // Update is called once per frame
@@ -36,6 +40,14 @@ public class Bird : MonoBehaviour
         //Controller
         if (Input.GetMouseButtonDown(0)) {
             rigid.velocity = new Vector3(v.x, 5, 0);
+        }
+    }
+
+    void OnCollisionEnter(Collision other) {
+        if (other.collider.tag=="Trap") {
+            Debug.Log("pz");
+            KnockTrap += cc.StopMove;
+            KnockTrap?.Invoke();//不为NULL则调用
         }
     }
 }

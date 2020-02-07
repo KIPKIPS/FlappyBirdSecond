@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class MoveTrigger : MonoBehaviour
 
     public PipeController pipe1;
     public PipeController pipe2;
+    
     // Start is called before the first frame update
     void Start() {
         currentBg = this.transform.parent;
@@ -35,5 +37,7 @@ public class MoveTrigger : MonoBehaviour
             pipe1.RandomPipePosition();
             pipe2.RandomPipePosition();
         }
+
+        
     }
 }
