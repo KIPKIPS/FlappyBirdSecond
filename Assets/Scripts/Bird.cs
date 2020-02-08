@@ -17,7 +17,8 @@ public class Bird : MonoBehaviour {
     //public CameraController cc;
 
     public GameManager.GameState state;
-    AudioSource[] audioSourceList;
+    private AudioSource[] audioSourceList;
+    private IEnumerator ie;
 
     // Start is called before the first frame update
     void Start() {
@@ -35,13 +36,13 @@ public class Bird : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         state = GameManager._instance.currentState;
-        Vector3 v = rigid.velocity;
         //菜单状态
         if (state == GameManager.GameState.MENU) {
             rigid.useGravity = false;
         }
         //游戏中
         if (state == GameManager.GameState.RUNNING) {
+            Vector3 v = rigid.velocity;
             rigid.useGravity = true;
             rigid.velocity = new Vector3(5, v.y, 0);//添加水平速度
             //Animation
@@ -60,12 +61,9 @@ public class Bird : MonoBehaviour {
                 audioSourceList[0].Play();
             }
         }
-
-
     }
 
-    private IEnumerator ie;
-    //发生碰撞
+    //碰撞到管道陷阱和地面
     void OnCollisionEnter(Collision other) {
         if (other.collider.tag == "Trap") {
             if (state!=GameManager.GameState.END) {
@@ -79,6 +77,7 @@ public class Bird : MonoBehaviour {
             StartCoroutine(ie);
         }
     }
+    //播放结束音效的协程
     IEnumerator PlayDeadAudio(float waitTime) {
         yield return new WaitForSeconds(waitTime);
         Debug.Log("dead");
@@ -87,8 +86,8 @@ public class Bird : MonoBehaviour {
         StopCoroutine(ie);
     }
 
+    //plus score
     void OnTriggerEnter(Collider other) {
-
         if (other.tag == "Score") {
             audioSourceList[2].Play();//加分音效
             GameManager._instance.score++;
