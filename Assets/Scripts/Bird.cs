@@ -68,23 +68,14 @@ public class Bird : MonoBehaviour {
         if (other.collider.tag == "Trap") {
             if (state!=GameManager.GameState.END) {
                 audioSourceList[1].Play();//撞击音效
+                audioSourceList[3].Play();//死亡音效
             }
             //KnockTrap += cc.StopMove;//注册方法
             //KnockTrap?.Invoke();//不为NULL则调用
             //将状态设置为END
             GameManager._instance.SetState(GameManager.GameState.END);
-            ie = PlayDeadAudio(1);
-            StartCoroutine(ie);
             Debug.Log(state);
         }
-    }
-    //播放结束音效的协程
-    IEnumerator PlayDeadAudio(float waitTime) {
-        yield return new WaitForSeconds(waitTime);
-        Debug.Log("dead");
-        //等待之后执行的动作  
-        audioSourceList[3].Play();//死亡音效
-        StopCoroutine(ie);
     }
 
     //plus score
