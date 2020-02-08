@@ -23,7 +23,7 @@ public class Bird : MonoBehaviour
         frameCount = 0;
         temp = 0;
         rigid = GetComponent<Rigidbody>();
-        cc = Camera.main.GetComponent<CameraController>();
+        //cc = Camera.main.GetComponent<CameraController>();
         score = 0;
         dead = false;
     }
@@ -52,8 +52,8 @@ public class Bird : MonoBehaviour
     //发生碰撞
     void OnCollisionEnter(Collision other) {
         if (other.collider.tag=="Trap") {
-            KnockTrap += cc.StopMove;
-            KnockTrap?.Invoke();//不为NULL则调用
+            //KnockTrap += cc.StopMove;
+            //KnockTrap?.Invoke();//不为NULL则调用
             dead = true;//将bird置为dead状态
         }
     }
