@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Bird.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GameMenu.cs" />
     <Compile Include="Assets\Scripts\MoveTrigger.cs" />
     <Compile Include="Assets\Scripts\PipeController.cs" />
     <Reference Include="Unity.Timeline.Editor">

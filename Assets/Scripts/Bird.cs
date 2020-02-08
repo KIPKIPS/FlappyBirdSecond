@@ -91,7 +91,7 @@ public class Bird : MonoBehaviour {
         if (other.tag == "Score") {
             audioSourceList[2].Play();//加分音效
             GameManager._instance.score++;
-            GameObject.Find("Score").transform.GetComponent<Text>().text = "Your Score : " + GameManager._instance.score;
+            GameObject.Find("ScorePanel").transform.GetComponent<Text>().text = "Your Score : " + GameManager._instance.score;
         }
     }
 }
