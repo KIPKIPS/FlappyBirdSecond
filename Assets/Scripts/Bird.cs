@@ -17,6 +17,7 @@ public class Bird : MonoBehaviour {
     //public CameraController cc;
 
     public GameManager.GameState state;
+    AudioSource[] audioSourceList;
 
     // Start is called before the first frame update
     void Start() {
@@ -26,6 +27,8 @@ public class Bird : MonoBehaviour {
         frameCount = 0;
         temp = 0;
         rigid = GetComponent<Rigidbody>();
+
+        audioSourceList= GetComponents<AudioSource>();
         //cc = Camera.main.GetComponent<CameraController>();
     }
 
@@ -53,25 +56,41 @@ public class Bird : MonoBehaviour {
             //Controller
             if (Input.GetMouseButtonDown(0)) {
                 rigid.velocity = new Vector3(v.x, 5, 0);
+                //播放音效
+                audioSourceList[0].Play();
             }
         }
 
 
     }
 
+    private IEnumerator ie;
     //发生碰撞
     void OnCollisionEnter(Collision other) {
         if (other.collider.tag == "Trap") {
+            if (state!=GameManager.GameState.END) {
+                audioSourceList[1].Play();//撞击音效
+            }
             //KnockTrap += cc.StopMove;//注册方法
             //KnockTrap?.Invoke();//不为NULL则调用
             //将状态设置为END
             GameManager._instance.SetState(GameManager.GameState.END);
+            ie = PlayDeadAudio(1);
+            StartCoroutine(ie);
         }
+    }
+    IEnumerator PlayDeadAudio(float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        Debug.Log("dead");
+        //等待之后执行的动作  
+        audioSourceList[3].Play();//死亡音效
+        StopCoroutine(ie);
     }
 
     void OnTriggerEnter(Collider other) {
 
         if (other.tag == "Score") {
+            audioSourceList[2].Play();//加分音效
             GameManager._instance.score++;
             GameObject.Find("Score").transform.GetComponent<Text>().text = "Your Score : " + GameManager._instance.score;
         }

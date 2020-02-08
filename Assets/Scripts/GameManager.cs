@@ -28,8 +28,12 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (Input.anyKey&&currentState!=GameState.END) {
+            if (currentState == GameState.MENU) {
+                GetComponent<AudioSource>().Play();
+            }
             currentState = GameState.RUNNING;
         }
+        
     }
 
     public void SetState(GameState state) {
