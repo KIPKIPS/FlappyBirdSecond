@@ -16,7 +16,7 @@ public class Bird : MonoBehaviour
     public event Action KnockTrap;//声明一个事件,发布消息
     public CameraController cc;
     private bool dead;
-    private int score;
+    
     // Start is called before the first frame update
     void Start() {
         mat = GetComponent<Renderer>().material;
@@ -24,7 +24,7 @@ public class Bird : MonoBehaviour
         temp = 0;
         rigid = GetComponent<Rigidbody>();
         //cc = Camera.main.GetComponent<CameraController>();
-        score = 0;
+        
         dead = false;
     }
 
@@ -59,9 +59,9 @@ public class Bird : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        score++;
         if (other.tag=="Score"&&!dead) {
-            GameObject.Find("Score").transform.GetComponent<Text>().text = "Your Score : " + score;
+            GameManager._instance.score++;
+            GameObject.Find("Score").transform.GetComponent<Text>().text = "Your Score : " + GameManager._instance.score;
         }
     }
 }

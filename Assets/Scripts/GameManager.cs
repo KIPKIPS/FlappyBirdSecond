@@ -5,10 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public Transform firstBg;//当前状态最后一个Bg
     public static GameManager _instance;
+    internal int score;
     //单例模式
     void Awake() {
         _instance = this;
         firstBg = GameObject.Find("bg5").transform;
+        score = 0;
     }
     // Start is called before the first frame update
     void Start() {
