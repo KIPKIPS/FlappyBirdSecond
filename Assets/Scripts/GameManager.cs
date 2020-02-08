@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour {
         firstBg = GameObject.Find("bg5").transform;
         score = 0;
         highestScore = 0;
-        ie = EndMenu();
     }
     // Start is called before the first frame update
     void Start() {
@@ -39,15 +39,12 @@ public class GameManager : MonoBehaviour {
             }
             currentState = GameState.RUNNING;
         }
-        if (_instance.currentState == GameState.END) {
-            StartCoroutine(ie);
+        if (currentState == GameState.END) {
+            EndMenu();
         }
-
-
     }
 
-    IEnumerator EndMenu() {
-        yield return new WaitForSeconds(2);
+    void EndMenu() {
         GameMenu._instance.gameObject.SetActive(true);
         GameObject.Find("CurrentScore").GetComponent<Text>().text = "" + _instance.score;
         if (_instance.score > highestScore) {
@@ -59,8 +56,24 @@ public class GameManager : MonoBehaviour {
         currentState = state;
     }
     public void OnRestartButton() {
-        GameMenu._instance.gameObject.SetActive(false);
+        ResetValue();
+        GameMenu._instance.gameObject.SetActive(false);//隐藏菜单栏
+        score = 0;
+        //重置score值
+        GameObject.Find("ScorePanel").transform.GetComponent<Text>().text = "Your Score : " + score;
+        currentState = GameState.MENU;//重置状态
     }
 
+    void ResetValue() {
+        GameObject.Find("bg1").transform.position=new Vector3(-1.84f,0,0);
+        GameObject.Find("bg2").transform.position = new Vector3(8.16f, 0, 0);
+        GameObject.Find("bg3").transform.position = new Vector3(18.16f, 0, 0);
+        GameObject.Find("bg4").transform.position = new Vector3(28.16f, 0, 0);
+        GameObject.Find("bg5").transform.position = new Vector3(38.16f, 0, 0);
+
+        GameObject.Find("bird").transform.position = new Vector3(-9f, 2.6f, -1);
+        GameObject.Find("bird").GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);
+        firstBg= GameObject.Find("bg5").transform;
+    }
 
 }

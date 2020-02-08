@@ -27,7 +27,7 @@ public class MoveTrigger : MonoBehaviour
 
     public void OnTriggerEnter(Collider other) {
         if (other.tag=="Player") {
-            //Debug.Log("OnTrigger");
+            Debug.Log(this.transform.parent.name);
             Transform firstBg = GameManager._instance.firstBg;
             //将当前Bg沿x坐标轴移动十个单位
             currentBg.position=new Vector3(firstBg.position.x+10, currentBg.position.y, currentBg.position.z);

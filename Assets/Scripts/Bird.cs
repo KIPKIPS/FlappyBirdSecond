@@ -75,6 +75,7 @@ public class Bird : MonoBehaviour {
             GameManager._instance.SetState(GameManager.GameState.END);
             ie = PlayDeadAudio(1);
             StartCoroutine(ie);
+            Debug.Log(state);
         }
     }
     //播放结束音效的协程
