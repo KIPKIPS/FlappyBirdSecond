@@ -18,7 +18,6 @@ public class Bird : MonoBehaviour {
 
     public GameManager.GameState state;
     private AudioSource[] audioSourceList;
-    private IEnumerator ie;
 
     // Start is called before the first frame update
     void Start() {
